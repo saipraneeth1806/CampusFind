@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browse reports · CampusFind</title>
+  <script th:src="@{/js/theme.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: navbar}"></div>
+<main class="container page-shell">
+  <div class="page-heading">
+    <span class="eyebrow">The campus board</span>
+    <h1>Browse reports</h1>
+    <p>Search what’s been lost or found around campus with instant live filtering. <small class="text-muted">(Press <code>/</code> to search)</small></p>
+  </div>
+
+  <form class="filter-panel" method="get" th:action="@{/reports}" id="filterForm">
+    <div class="row g-3 align-items-end">
+      <div class="col-lg-4">
+        <label for="q" class="form-label">Instant search</label>
+        <input class="form-control" id="q" name="q" th:value="${q}" placeholder="Type item name, color, or location..." autocomplete="off">
+      </div>
+      <div class="col-sm-4 col-lg-2">
+        <label for="type" class="form-label">Report type</label>
+        <select class="form-select" name="type" id="type">
+          <option value="">Any type</option>
+          <option th:each="t : ${reportTypes}" th:value="${t.name()}" th:text="${t.name() == 'LOST' ? 'Lost' : 'Found'}" th:selected="${selectedType == t.name()}"></option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-lg-2">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" name="category" id="category">
+          <option value="">Any category</option>
+          <option th:each="c : ${categories}" th:value="${c.name()}" th:text="${c.label}" th:selected="${selectedCategory == c.name()}"></option>
+        </select>
+      </div>
+      <div class="col-sm-4 col-lg-2">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" name="status" id="status">
+          <option th:each="s : ${statuses}" th:value="${s.name()}" th:text="${s.name() == 'OPEN' ? 'Open' : 'Resolved'}" th:selected="${selectedStatus == s.name()}"></option>
+          <option value="ALL" th:selected="${selectedStatus == 'ALL'}">All statuses</option>
+        </select>
+      </div>
+      <div class="col-lg-2 d-flex gap-2">
+        <button class="btn btn-primary flex-grow-1" type="submit">Search</button>
+        <a class="btn btn-outline-secondary" th:href="@{/reports}" aria-label="Clear filters">Clear</a>
+      </div>
+    </div>
+
+    <!-- Quick Type & Status Tabs -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mt-3 pt-2 border-top">
+      <div class="category-filter-pills m-0">
+        <button type="button" class="cat-pill type-pill-btn" th:classappend="${selectedType == null or selectedType == '' ? 'active' : ''}" data-type="">All types</button>
+        <button type="button" class="cat-pill type-pill-btn" th:classappend="${selectedType == 'LOST' ? 'active' : ''}" data-type="LOST">🔎 Lost only</button>
+        <button type="button" class="cat-pill type-pill-btn" th:classappend="${selectedType == 'FOUND' ? 'active' : ''}" data-type="FOUND">✦ Found only</button>
+      </div>
+      <div class="category-filter-pills m-0 mt-2 mt-md-0">
+        <button type="button" class="cat-pill status-pill-btn" th:classappend="${selectedStatus == null or selectedStatus == 'OPEN' ? 'active' : ''}" data-status="OPEN">Active only</button>
+        <button type="button" class="cat-pill status-pill-btn" th:classappend="${selectedStatus == 'ALL' ? 'active' : ''}" data-status="ALL">All statuses</button>
+      </div>
+    </div>
+
+    <!-- Quick Category Filter Pills -->
+    <div class="category-filter-pills mt-2">
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == null or selectedCategory == '' ? 'active' : ''}" data-category="">All items</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'ELECTRONICS' ? 'active' : ''}" data-category="ELECTRONICS">📱 Electronics</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'KEYS' ? 'active' : ''}" data-category="KEYS">🔑 Keys</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'WATER_BOTTLES' ? 'active' : ''}" data-category="WATER_BOTTLES">💧 Water bottles</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'ID_CARDS' ? 'active' : ''}" data-category="ID_CARDS">🪪 ID cards & docs</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'BOOKS_STATIONERY' ? 'active' : ''}" data-category="BOOKS_STATIONERY">📚 Books</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'CLOTHING' ? 'active' : ''}" data-category="CLOTHING">👕 Clothing</button>
+      <button type="button" class="cat-pill" th:classappend="${selectedCategory == 'OTHER' ? 'active' : ''}" data-category="OTHER">📦 Other</button>
+    </div>
+
+    <!-- Campus Hotspots & Building Explorer -->
+    <div class="campus-hotspots-bar mt-3 pt-2 border-top">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="small fw-bold text-muted"><span aria-hidden="true">📍</span> Campus Hotspot Filter:</span>
+        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none small text-muted location-pill" data-location="">Reset location</button>
+      </div>
+      <div class="hotspots-grid">
+        <button type="button" class="hotspot-chip location-pill" data-location="Library">
+          <span class="hotspot-icon">📚</span>
+          <span>Central Library</span>
+        </button>
+        <button type="button" class="hotspot-chip location-pill" data-location="Science Block">
+          <span class="hotspot-icon">🔬</span>
+          <span>Science Block</span>
+        </button>
+        <button type="button" class="hotspot-chip location-pill" data-location="Cafeteria">
+          <span class="hotspot-icon">☕</span>
+          <span>Cafeteria</span>
+        </button>
+        <button type="button" class="hotspot-chip location-pill" data-location="Student Center">
+          <span class="hotspot-icon">🏛️</span>
+          <span>Student Center</span>
+        </button>
+        <button type="button" class="hotspot-chip location-pill" data-location="A Block">
+          <span class="hotspot-icon">⚙️</span>
+          <span>A Block</span>
+        </button>
+        <button type="button" class="hotspot-chip location-pill" data-location="Gymnasium">
+          <span class="hotspot-icon">🏋️</span>
+          <span>Gymnasium</span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <p class="results-count mb-0"><strong th:text="${reports.totalElements}">0</strong> reports</p>
+    <div class="d-flex align-items-center gap-3">
+      <a th:href="@{/api/v1/reports/export.csv}" class="btn btn-sm btn-outline-secondary rounded-pill d-inline-flex align-items-center gap-1" title="Download campus ledger as CSV">
+        <span>📥</span> <span>Export CSV</span>
+      </a>
+      <a class="text-link" th:href="@{/reports/new}">＋ Add a report</a>
+    </div>
+  </div>
+
+  <div class="row g-3" id="reportsGrid" th:if="${reports.hasContent()}">
+    <div class="col-md-6 col-lg-4 report-col" th:each="report : ${reports.content}">
+      <a class="report-card" th:href="@{/reports/{id}(id=${report.id})}"
+         th:classappend="${report.hasImage() ? 'has-card-image' : ''}"
+         th:data-type="${report.type.name()}"
+         th:data-category="${report.category.name()}"
+         th:data-status="${report.status.name()}">
+        <div class="card-image-wrap mb-2" th:if="${report.hasImage()}">
+          <img th:src="${report.imageUrl}" th:alt="${report.itemName}" class="card-thumb-img" loading="lazy">
+        </div>
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="type-pill" th:classappend="${report.type.name() == 'LOST' ? ' type-lost' : ' type-found'}" th:text="${report.type.name() == 'LOST' ? 'Lost' : 'Found'}">Found</span>
+          <span class="status-dot" th:classappend="${report.status.name() == 'RESOLVED' ? ' resolved' : ''}" th:text="${report.status.name() == 'OPEN' ? 'Open' : 'Resolved'}">Open</span>
+          <span class="photo-badge ms-auto" th:if="${report.hasImage()}" title="Photo attached">📷 Photo</span>
+        </div>
+        <span class="card-arrow">↗</span><h3 th:text="${report.itemName}">Item</h3>
+        <div class="d-flex flex-wrap gap-1 mb-2" th:if="${report.hasReward() or report.hasStudentId() or (report.type.name() == 'FOUND' and report.custodyStatus.name() != 'WITH_FINDER')}">
+          <span class="badge bg-warning text-dark" th:if="${report.hasReward()}">🎁 [[${report.reward}]]</span>
+          <span class="badge bg-info-subtle text-info-emphasis" th:if="${report.hasStudentId()}">🪪 ID: [[${report.maskedStudentId}]]</span>
+          <span class="badge bg-secondary-subtle text-secondary-emphasis" th:if="${report.type.name() == 'FOUND' and report.custodyStatus.name() != 'WITH_FINDER'}">🏛️ [[${report.custodyLabel}]]</span>
+        </div>
+        <p class="card-description" th:text="${report.description}">Description</p>
+        <p class="card-meta"><span th:text="${report.category.label}">Category</span><span>·</span><span th:text="${report.location}">Location</span></p>
+        <small th:text="${#temporals.format(report.lastSeenOrFoundAt, 'MMM d, yyyy')}">Date</small>
+      </a>
+    </div>
+  </div>
+
+  <!-- Instant Search No-Match Card -->
+  <div class="empty-card d-none" id="instantEmptyState">
+    <div class="step-icon peach mx-auto mb-3">⌕</div>
+    <h2>No matching reports in this view</h2>
+    <p>Try searching for a different keyword or reset filters to see all campus listings.</p>
+    <button type="button" class="btn btn-outline-primary rounded-pill px-4" id="resetInstantFilter">Reset filters</button>
+  </div>
+
+  <div class="empty-card" th:unless="${reports.hasContent()}">
+    <div class="step-icon peach mx-auto mb-3">⌕</div>
+    <h2>No reports found</h2>
+    <p>Try another search or clear the filters to see more reports.</p>
+    <a class="btn btn-primary rounded-pill px-4" th:href="@{/reports}">Clear filters</a>
+  </div>
+
+  <nav class="mt-4" th:if="${reports.totalPages > 1}" aria-label="Report pages">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" th:classappend="${reports.first ? 'disabled' : ''}">
+        <a class="page-link" th:href="@{/reports(q=${q},type=${selectedType},category=${selectedCategory},status=${selectedStatus},page=${reports.number - 1})}">Previous</a>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link" th:text="|Page ${reports.number + 1} of ${reports.totalPages}|">Page</span>
+      </li>
+      <li class="page-item" th:classappend="${reports.last ? 'disabled' : ''}">
+        <a class="page-link" th:href="@{/reports(q=${q},type=${selectedType},category=${selectedCategory},status=${selectedStatus},page=${reports.number + 1})}">Next</a>
+      </li>
+    </ul>
+  </nav>
+</main>
+<footer class="site-footer"><div class="container">CampusFind · Lost-and-found, together.</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/instant-search.js}"></script>
+</body>
+</html>
