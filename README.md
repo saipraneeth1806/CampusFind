@@ -2,7 +2,7 @@
 
 [![Java 17](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
 [![Spring Boot 3.5](https://img.shields.io/badge/Spring_Boot-3.5.16-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
-[![Build & Test](https://img.shields.io/badge/CI-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)](.github/workflows/ci.yml)
+[![Build & Test](https://github.com/saipraneeth1806/CampusFind/actions/workflows/ci.yml/badge.svg)](https://github.com/saipraneeth1806/CampusFind/actions/workflows/ci.yml)
 [![PWA](https://img.shields.io/badge/PWA-Ready-blueviolet?style=for-the-badge&logo=pwa&logoColor=white)](src/main/resources/static/manifest.webmanifest)
 [![REST API](https://img.shields.io/badge/REST_API-Interactive_Explorer-orange?style=for-the-badge)](http://localhost:8080/api/docs)
 [![MySQL 8](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
