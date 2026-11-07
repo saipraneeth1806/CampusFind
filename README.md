@@ -15,7 +15,7 @@
 ---
 
 ## 📑 Table of Contents
-- [Executive Overview & Resume Highlights](#-executive-overview--resume-highlights)
+- [Overview & Key Capabilities](#-overview--key-capabilities)
 - [System Architecture](#-system-architecture)
 - [Domain & Engineering Capabilities](#-domain--engineering-capabilities)
 - [Technology Stack](#-technology-stack)
@@ -23,11 +23,10 @@
 - [Quickstart & Execution Guide](#-quickstart--execution-guide)
 - [Docker & Containerized Deployment](#-docker--containerized-deployment)
 - [Quality Assurance & Testing Suite](#-quality-assurance--testing-suite)
-- [Resume Bullet Points](#-resume-bullet-points-ready-to-use)
 
 ---
 
-## 💼 Executive Overview & Resume Highlights
+## 📌 Overview & Key Capabilities
 
 CampusFind transforms informal, fragmented campus lost-and-found processes (social media threads, lost item WhatsApp groups, and bulletin boards) into a centralized, auditable, and privacy-preserving university service.
 
@@ -277,17 +276,6 @@ mvn test -Dtest="*Playwright*"
 # Run entire test suite:
 mvn test
 ```
-
----
-
-## 📄 Resume Bullet Points (Ready to Use)
-
-Feel free to adapt these bullet points for your Software Engineering resume:
-
-* **Engineered CampusFind**, a full-stack Lost & Found university platform using **Spring Boot 3.5**, **Spring Security 6**, **Thymeleaf**, and **MySQL 8.0**, handling lost item reporting, custody tracking, and recovery workflows.
-* **Architected an explainable multi-factor matching engine** (Levenshtein distance, category heuristics, location clustering, and USN matching) that computes 0–100 match confidence and triggers proactive notifications.
-* **Implemented zero-leakage privacy & anti-fraud security**, featuring an in-app peer-to-peer messaging system that shields student emails/phone numbers, paired with a secret challenge-question verification protocol before item custody handovers.
-* **Constructed containerized deployment & automated testing pipeline** with **Docker**, **Docker Compose**, and **GitHub Actions CI**, achieving 100% pass rate across **38 unit, integration, and Playwright Chromium E2E browser tests**.
 
 ---
 
