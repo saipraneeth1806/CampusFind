@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Create account · CampusFind</title><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"><link th:href="@{/css/style.css}" rel="stylesheet"></head>
+<body><div th:replace="~{fragments/nav :: navbar}"></div><main class="container page-shell auth-shell">
+  <section class="auth-panel"><div class="auth-mark"><img th:src="@{/images/campusfind-mark.svg}" alt=""></div><span class="eyebrow">Join your campus board</span><h1>Create account</h1><p>Your account lets you post reports and receive private messages without displaying your email publicly.</p>
+    <form th:action="@{/register}" th:object="${registrationForm}" method="post">
+      <div class="mb-3"><label for="displayName" class="form-label">Name shown to other members</label><input id="displayName" class="form-control" th:field="*{displayName}" autocomplete="name" th:errorclass="is-invalid"><div class="invalid-feedback" th:errors="*{displayName}"></div></div>
+      <div class="mb-3"><label for="email" class="form-label">Email address <span class="field-private">private</span></label><input id="email" type="email" class="form-control" th:field="*{email}" autocomplete="email" th:errorclass="is-invalid"><div class="invalid-feedback" th:errors="*{email}"></div></div>
+      <div class="mb-3"><label for="password" class="form-label">Password</label><input id="password" type="password" class="form-control" th:field="*{password}" autocomplete="new-password" th:errorclass="is-invalid"><div class="form-text">Use at least 8 characters. Passwords are stored as a one-way hash.</div><div class="invalid-feedback" th:errors="*{password}"></div></div>
+      <div class="mb-4"><label for="confirmPassword" class="form-label">Confirm password</label><input id="confirmPassword" type="password" class="form-control" th:field="*{confirmPassword}" autocomplete="new-password" th:errorclass="is-invalid"><div class="invalid-feedback" th:errors="*{confirmPassword}"></div></div>
+      <button class="btn btn-primary btn-lg rounded-pill w-100" type="submit">Create account</button>
+    </form><p class="auth-switch">Already have an account? <a th:href="@{/login}">Log in</a></p><p class="auth-footnote">For this local learning project, there is no email verification or password-reset email yet.</p>
+  </section>
+</main><footer class="site-footer"><div class="container">CampusFind · A safer way to reconnect.</div></footer></body></html>

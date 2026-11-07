@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark site-nav">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center" th:href="@{/}">
+      <img class="brand-logo" th:src="@{/images/campusfind-mark.svg}" alt=""> CampusFind
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <!-- Primary campus navigation links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/reports}">Browse reports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/assistant}">AI assistant</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/about}">About & safety</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/api/docs}">API docs</a>
+        </li>
+      </ul>
+
+      <!-- User actions, account dropdown, and controls -->
+      <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <a class="nav-link position-relative d-inline-flex align-items-center" sec:authorize="isAuthenticated()" th:href="@{/inbox}" id="navInboxLink">
+          <span class="me-1" aria-hidden="true">✉</span>Inbox
+          <span class="badge rounded-pill bg-danger nav-badge-pill d-none" id="navInboxBadge">0</span>
+        </a>
+
+        <!-- Consolidated Account Dropdown -->
+        <div class="nav-item dropdown" sec:authorize="isAuthenticated()">
+          <a class="nav-link dropdown-toggle d-inline-flex align-items-center gap-1" href="#" id="accountMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span aria-hidden="true">👤</span> My account
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end site-dropdown" aria-labelledby="accountMenu">
+            <li><a class="dropdown-item" th:href="@{/account}">Dashboard</a></li>
+            <li>
+              <a class="dropdown-item d-flex justify-content-between align-items-center" th:href="@{/notifications}">
+                <span>Match alerts</span>
+                <span class="badge rounded-pill bg-primary nav-badge-pill d-none" id="navAlertsBadge">0</span>
+              </a>
+            </li>
+            <li><a class="dropdown-item" th:href="@{/saved}">Saved reports</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form th:action="@{/logout}" method="post" class="m-0">
+                <button class="dropdown-item text-danger border-0 bg-transparent w-100 text-start" type="submit">Log out</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+
+        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">Log in</a>
+        <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/register}">Create account</a>
+
+        <button type="button" class="theme-toggle ms-lg-1" data-theme-toggle aria-pressed="false" aria-label="Switch to dark mode">
+          <span aria-hidden="true">☾</span>
+          <span class="theme-label">Dark</span>
+        </button>
+
+        <a class="btn btn-light btn-sm rounded-pill px-3 ms-lg-2 fw-bold text-nowrap" th:href="@{/reports/new}">＋ New report</a>
+      </div>
+    </div>
+    <script th:src="@{/js/theme.js}"></script>
+    <script sec:authorize="isAuthenticated()" th:src="@{/js/live-updates.js}"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function() {});
+        });
+      }
+    </script>
+  </div>
+</nav>
+</body>
+</html>

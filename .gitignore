@@ -1,0 +1,11 @@
+/target/
+/.m2/
+.idea/
+.vscode/
+*.iml
+.env
+application-local.properties
+*.log
+uploads/
+__pycache__/
+*.pyc

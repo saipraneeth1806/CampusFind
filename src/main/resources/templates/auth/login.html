@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in · CampusFind</title>
+  <script th:src="@{/js/theme.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: navbar}"></div>
+<main class="container page-shell auth-shell">
+  <section class="auth-panel">
+    <div class="auth-mark"><img th:src="@{/images/campusfind-mark.svg}" alt=""></div>
+    <span class="eyebrow">Welcome back</span>
+    <h1>Log in</h1>
+    <p>Pick up where your campus search left off.</p>
+
+    <div class="alert alert-success" th:if="${param.registered}">Account created. Log in to continue.</div>
+    <div class="alert alert-danger" th:if="${param.error}">Email or password was not recognized.</div>
+    <div class="alert alert-info" th:if="${param.logout}">You have logged out.</div>
+
+    <form th:action="@{/login}" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">Email address</label>
+        <input id="username" name="username" type="email" class="form-control" autocomplete="username" required autofocus>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" name="password" type="password" class="form-control" autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-primary btn-lg rounded-pill w-100" type="submit">Log in</button>
+    </form>
+
+    <!-- 1-Click Quick Demo Accounts Helper -->
+    <div class="demo-accounts-box mt-4 p-3 rounded-3 border">
+      <small class="fw-bold text-uppercase d-block mb-2 text-muted" style="letter-spacing: .06em; font-size: .72rem;">
+        ⚡ Quick Demo Accounts (Click to Fill)
+      </small>
+      <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill demo-fill-btn"
+                data-email="arun@dsatm.edu.in" data-pass="CampusFind-123">
+          👤 Arun (Student)
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill demo-fill-btn"
+                data-email="sneha@dsatm.edu.in" data-pass="CampusFind-123">
+          👤 Sneha (Student)
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill demo-fill-btn"
+                data-email="rohit@dsatm.edu.in" data-pass="CampusFind-123">
+          👤 Rohit (Student)
+        </button>
+      </div>
+    </div>
+
+    <p class="auth-switch mt-3">New to CampusFind? <a th:href="@{/register}">Create an account</a></p>
+    <p class="auth-footnote">Your email is used for sign-in and is not shown on your reports.</p>
+  </section>
+</main>
+<footer class="site-footer"><div class="container">CampusFind · A safer way to reconnect.</div></footer>
+
+<script>
+  document.querySelectorAll('.demo-fill-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const emailField = document.getElementById('username');
+      const passField = document.getElementById('password');
+      if (emailField && passField) {
+        emailField.value = this.dataset.email;
+        passField.value = this.dataset.pass;
+        emailField.focus();
+      }
+    });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
