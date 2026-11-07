@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: campusfind
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: SEED_DATA
+        value: true
+      - key: AI_API_KEY
+        sync: false
+

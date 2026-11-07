@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0d1e27; }
+      .box { rx: 14; ry: 14; stroke-width: 1.5; }
+      .client-box { fill: #172d38; stroke: #2a5568; }
+      .gateway-box { fill: #133443; stroke: #1d6079; }
+      .service-box { fill: #133c46; stroke: #19788a; }
+      .data-box { fill: #123038; stroke: #245864; }
+      .sub-card { fill: #1a4150; stroke: #2d6b7f; rx: 8; ry: 8; }
+      .accent-card { fill: #195866; stroke: #38a5b8; rx: 8; ry: 8; }
+      .title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-weight: 800; fill: #ffffff; font-size: 20px; }
+      .layer-title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-weight: 700; fill: #52c7d9; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; }
+      .card-title { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-weight: 700; fill: #e8f7fa; font-size: 13px; }
+      .card-desc { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; font-weight: 400; fill: #a2c2c9; font-size: 11px; }
+      .badge-text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size: 10px; fill: #d5f2f6; }
+      .arrow { stroke: #38a5b8; stroke-width: 2; fill: none; stroke-dasharray: 4,4; }
+      .solid-arrow { stroke: #45b7ca; stroke-width: 2; fill: none; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#45b7ca" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="720" class="bg" rx="18" ry="18" />
+
+  <!-- Header -->
+  <g transform="translate(40, 35)">
+    <rect x="0" y="0" width="34" height="34" rx="10" fill="#38a5b8" />
+    <text x="17" y="24" text-anchor="middle" font-size="20" fill="#0d1e27">🎒</text>
+    <text x="46" y="24" class="title">CampusFind System Architecture</text>
+    <text x="400" y="24" font-family="'Segoe UI', sans-serif" font-size="13" fill="#7ba3ab">Full-Stack Spring Boot 3.5 &bull; Decoupled REST &bull; PWA &bull; Explainable Matching</text>
+  </g>
+
+  <!-- Layer 1: Client & Presentation Tier -->
+  <g transform="translate(40, 85)">
+    <rect width="1020" height="110" class="box client-box" />
+    <text x="25" y="28" class="layer-title">1. Client &amp; Presentation Tier</text>
+
+    <!-- Sub-cards -->
+    <g transform="translate(25, 40)">
+      <rect width="300" height="55" class="sub-card" />
+      <text x="15" y="24" class="card-title">Responsive Web UI (Thymeleaf)</text>
+      <text x="15" y="42" class="card-desc">Bootstrap 5 &bull; Live Updates &bull; Instant Debounced Search</text>
+    </g>
+
+    <g transform="translate(345, 40)">
+      <rect width="320" height="55" class="sub-card" />
+      <text x="15" y="24" class="card-title">Progressive Web App (PWA)</text>
+      <text x="15" y="42" class="card-desc">manifest.webmanifest &bull; Service Worker (sw.js) &bull; Offline Cache</text>
+    </g>
+
+    <g transform="translate(685, 40)">
+      <rect width="310" height="55" class="accent-card" />
+      <text x="15" y="24" class="card-title">Decoupled Frontends (Vercel / Mobile)</text>
+      <text x="15" y="42" class="card-desc">Next.js / React apps connecting via CORS REST API</text>
+    </g>
+  </g>
+
+  <!-- Connectors L1 -> L2 -->
+  <line x1="190" y1="195" x2="190" y2="225" class="solid-arrow" marker-end="url(#arrowhead)" />
+  <line x1="505" y1="195" x2="505" y2="225" class="solid-arrow" marker-end="url(#arrowhead)" />
+  <line x1="840" y1="195" x2="840" y2="225" class="solid-arrow" marker-end="url(#arrowhead)" />
+
+  <!-- Layer 2: Gateway & Controller Tier -->
+  <g transform="translate(40, 225)">
+    <rect width="1020" height="120" class="box gateway-box" />
+    <text x="25" y="26" class="layer-title">2. API Gateway, Security &amp; Controllers</text>
+
+    <g transform="translate(25, 38)">
+      <rect width="230" height="68" class="sub-card" />
+      <text x="12" y="22" class="card-title">Spring Security 6</text>
+      <text x="12" y="40" class="card-desc">BCrypt Password Encoder</text>
+      <text x="12" y="56" class="card-desc">Session Auth &bull; CSRF Exemption</text>
+    </g>
+
+    <g transform="translate(270, 38)">
+      <rect width="230" height="68" class="sub-card" />
+      <text x="12" y="22" class="card-title">Web MVC Controllers</text>
+      <text x="12" y="40" class="card-desc">HomeController &bull; ReportController</text>
+      <text x="12" y="56" class="card-desc">ContactController &bull; AccountController</text>
+    </g>
+
+    <g transform="translate(515, 38)">
+      <rect width="255" height="68" class="accent-card" />
+      <text x="12" y="22" class="card-title">Decoupled REST API (/api)</text>
+      <text x="12" y="40" class="card-desc">/api/v1/reports &bull; /api/v1/stats</text>
+      <text x="12" y="56" class="card-desc">/api/health &bull; /export.csv &bull; CORS (*)</text>
+    </g>
+
+    <g transform="translate(785, 38)">
+      <rect width="210" height="68" class="sub-card" />
+      <text x="12" y="22" class="card-title">Developer API Explorer</text>
+      <text x="12" y="40" class="card-desc">/api/docs Live Test Console</text>
+      <text x="12" y="56" class="card-desc">Interactive Fetch &bull; Benchmarking</text>
+    </g>
+  </g>
+
+  <!-- Connectors L2 -> L3 -->
+  <line x1="550" y1="345" x2="550" y2="375" class="solid-arrow" marker-end="url(#arrowhead)" />
+
+  <!-- Layer 3: Service Layer -->
+  <g transform="translate(40, 375)">
+    <rect width="1020" height="155" class="box service-box" />
+    <text x="25" y="26" class="layer-title">3. Business Logic &amp; Domain Services</text>
+
+    <g transform="translate(25, 40)">
+      <rect width="305" height="48" class="sub-card" />
+      <text x="12" y="20" class="card-title">MatchingService (0-100 Score)</text>
+      <text x="12" y="36" class="card-desc">Category (30) &bull; Tokens (40) &bull; Loc (20) &bull; Date (10)</text>
+    </g>
+
+    <g transform="translate(345, 40)">
+      <rect width="320" height="48" class="sub-card" />
+      <text x="12" y="20" class="card-title">Anti-Fraud &amp; Proof of Ownership</text>
+      <text x="12" y="36" class="card-desc">Secret Challenge Questions &bull; Custody Status</text>
+    </g>
+
+    <g transform="translate(680, 40)">
+      <rect width="315" height="48" class="accent-card" />
+      <text x="12" y="20" class="card-title">100% Student ID / USN Matcher</text>
+      <text x="12" y="36" class="card-desc">Masked Display (1DS22***) &bull; Exact Auto-Match</text>
+    </g>
+
+    <g transform="translate(25, 96)">
+      <rect width="305" height="48" class="sub-card" />
+      <text x="12" y="20" class="card-title">ReportService &amp; Retention</text>
+      <text x="12" y="36" class="card-desc">CRUD &bull; Specification Search &bull; 60-Day Policy</text>
+    </g>
+
+    <g transform="translate(345, 96)">
+      <rect width="320" height="48" class="sub-card" />
+      <text x="12" y="20" class="card-title">ContactService (Zero Email Leak)</text>
+      <text x="12" y="36" class="card-desc">Private Threads &bull; Unread Counter &bull; Safe Meetups</text>
+    </g>
+
+    <g transform="translate(680, 96)">
+      <rect width="315" height="48" class="sub-card" />
+      <text x="12" y="20" class="card-title">ImageStorageService &amp; Assistant</text>
+      <text x="12" y="36" class="card-desc">5MB MIME Check &bull; UUID Paths &bull; CampusFindAgent</text>
+    </g>
+  </g>
+
+  <!-- Connectors L3 -> L4 -->
+  <line x1="550" y1="530" x2="550" y2="560" class="solid-arrow" marker-end="url(#arrowhead)" />
+
+  <!-- Layer 4: Data & Persistence Tier -->
+  <g transform="translate(40, 560)">
+    <rect width="1020" height="120" class="box data-box" />
+    <text x="25" y="26" class="layer-title">4. Persistence, Storage &amp; Cloud Deployment</text>
+
+    <g transform="translate(25, 40)">
+      <rect width="230" height="60" class="sub-card" />
+      <text x="12" y="22" class="card-title">Spring Data JPA / Hibernate</text>
+      <text x="12" y="42" class="card-desc">HikariCP Pool &bull; Indexes &bull; Specs</text>
+    </g>
+
+    <g transform="translate(270, 40)">
+      <rect width="230" height="60" class="sub-card" />
+      <text x="12" y="22" class="card-title">Relational Database</text>
+      <text x="12" y="42" class="card-desc">MySQL 8.0 (Prod) / H2 (Dev &amp; Tests)</text>
+    </g>
+
+    <g transform="translate(515, 40)">
+      <rect width="240" height="60" class="sub-card" />
+      <text x="12" y="22" class="card-title">Media &amp; File Storage</text>
+      <text x="12" y="42" class="card-desc">uploads/ &bull; Persistent Docker Volume</text>
+    </g>
+
+    <g transform="translate(770, 40)">
+      <rect width="225" height="60" class="accent-card" />
+      <text x="12" y="22" class="card-title">Cloud Deployment</text>
+      <text x="12" y="42" class="card-desc">Docker &bull; Render &bull; Railway &bull; Fly.io</text>
+    </g>
+  </g>
+</svg>
+
