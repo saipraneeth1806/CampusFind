@@ -53,8 +53,8 @@
 
     <g transform="translate(685, 40)">
       <rect width="310" height="55" class="accent-card" />
-      <text x="15" y="24" class="card-title">Decoupled Frontends (Vercel / Mobile)</text>
-      <text x="15" y="42" class="card-desc">Next.js / React apps connecting via CORS REST API</text>
+      <text x="15" y="24" class="card-title">REST API Clients &amp; Integrations</text>
+      <text x="15" y="42" class="card-desc">Mobile Apps &bull; Admin Desks &bull; External Systems</text>
     </g>
   </g>
 
