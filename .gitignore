@@ -9,3 +9,6 @@ application-local.properties
 uploads/
 __pycache__/
 *.pyc
+*.class
+.DS_Store
+Thumbs.db
